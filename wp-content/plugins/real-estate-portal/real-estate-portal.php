@@ -20,9 +20,15 @@ require_once REP_PLUGIN_DIR . 'includes/cpt.php';
 require_once REP_PLUGIN_DIR . 'includes/meta-boxes.php';
 require_once REP_PLUGIN_DIR . 'includes/shortcodes.php';
 require_once REP_PLUGIN_DIR . 'includes/templates.php';
+require_once REP_PLUGIN_DIR . 'includes/filters.php'; // NEW
 
 add_action('plugins_loaded', function () {
-    // Load text domain if needed in future
+    // Load translations from /languages directory (e.g., real-estate-portal-en_US.mo)
+    load_plugin_textdomain(
+        'real-estate-portal',          // Text domain (match your plugin slug/Text Domain header)
+        false,
+        basename(REP_PLUGIN_DIR) . '/languages'
+    );
 });
 
 add_action('wp_enqueue_scripts', function () {

@@ -1,0 +1,171 @@
+/* Basic modern styles for header and sections */
+:root {
+    --rep-primary: #1e88e5;
+    --rep-dark: #0d1b2a;
+    --rep-mid: #415a77;
+    --rep-light: #e0e1dd;
+    --rep-white: #fff;
+}
+
+.rep-hero {
+    background: linear-gradient(135deg, var(--rep-dark), var(--rep-mid));
+    color: var(--rep-white);
+    padding: 60px 20px;
+    text-align: center;
+}
+.rep-hero .rep-hero-inner {
+    max-width: 1100px; margin: 0 auto;
+}
+.rep-hero h1 { font-size: 2.2rem; margin: 0; }
+.rep-subtitle { margin-top: 8px; color: #e9f1ff; }
+
+.rep-section {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.rep-section-title {
+    font-size: 1.8rem;
+    border-left: 6px solid var(--rep-primary);
+    padding-left: 12px;
+    margin-bottom: 16px;
+}
+
+.rep-list .rep-news-item {
+    background: var(--rep-white);
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.rep-item-title { margin: 0 0 8px; }
+.rep-read-more {
+    background: transparent;
+    border: 1px solid var(--rep-primary);
+    color: var(--rep-primary);
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+.rep-news-more { margin-top: 8px; }
+
+.rep-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+.rep-card {
+    background: var(--rep-white);
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.rep-card-thumb img, .rep-single-hero img { width: 100%; height: auto; display:block; }
+.rep-thumb-placeholder {
+    background: #f5f5f5;
+    color: #777;
+    display: flex; align-items: center; justify-content: center;
+    height: 180px;
+}
+.rep-card-body { padding: 14px; display:flex; flex-direction: column; gap: 8px; }
+.rep-card-title { margin: 0; font-size: 1.1rem; }
+.rep-card-excerpt { margin: 0; color: #555; }
+.rep-button-outline {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--rep-primary);
+    border: 1px solid var(--rep-primary);
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-weight: 600;
+}
+.rep-button {
+    display: inline-block;
+    background: var(--rep-primary);
+    color: var(--rep-white);
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+.rep-view-all { margin-top: 16px; text-align: center; }
+
+.rep-single { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+.rep-single-header h1 { margin-top: 0; }
+.rep-prop-specs { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+.rep-prop-specs li { background:#f7f9fc; padding:10px; border-radius:6px; }
+
+/* Filters (archive properties) */
+.rep-filters {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.rep-filters-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.rep-filter label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+.rep-filter input,
+.rep-filter select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    background: #fff;
+}
+.rep-filters-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Pagination */
+.rep-pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Red text for Renovation Services and News */
+.post-type-archive-renovation_service,
+.single-renovation_service,
+.post-type-archive-news,
+.single-news {
+    /* Update theme text tokens so elements using var(--text)/--muted switch to red */
+    --text: #ff0000;
+    --muted: #ff6b6b;
+
+    /* Ensure base text is red in these contexts */
+    color: #ff0000;
+}
+
+/* Ensure key inner elements also show red text */
+.post-type-archive-renovation_service .rep-item-title a,
+.single-renovation_service .rep-item-title a,
+.post-type-archive-news .rep-item-title a,
+.single-news .rep-item-title a,
+.post-type-archive-renovation_service .rep-card-title a,
+.single-renovation_service .rep-card-title a,
+.post-type-archive-news .rep-card-title a,
+.single-news .rep-card-title a,
+.post-type-archive-renovation_service .rep-news-text,
+.single-renovation_service .rep-news-text,
+.post-type-archive-news .rep-news-text,
+.single-news .rep-news-text,
+.post-type-archive-news .rep-news-more,
+.single-news .rep-news-more {
+    color: #ff0000;
+}

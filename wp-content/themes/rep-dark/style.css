@@ -1,0 +1,206 @@
+/*
+Theme Name: REP Dark
+Theme URI: https://example.com/
+Author: Your Name
+Description: Dark, one-page theme for Real Estate Portal plugin sections.
+Version: 1.0.0
+Text Domain: rep-dark
+*/
+
+/* Dark theme variables */
+:root {
+    --bg: #0b0f14;
+    --bg-2: #121821;
+    --card: #161e29;
+    --text: #e6edf3;
+    --muted: #a7b1bb;
+    --primary: #4aa3ff;
+    --accent: #00d1b2;
+    --border: #223042;
+    --shadow: rgba(0,0,0,.35);
+}
+
+* { box-sizing: border-box; }
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+}
+
+/* Header */
+.site-header {
+    background: linear-gradient(135deg, #0a0f16, #122031);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.site-title a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+.site-nav a {
+    color: var(--muted);
+    text-decoration: none;
+    margin-left: 18px;
+    font-weight: 600;
+}
+.site-nav a:hover { color: var(--text); }
+
+/* Hero */
+.rep-hero {
+    background: linear-gradient(135deg, #0e1520, #1a2a3f);
+    padding: 70px 20px;
+    text-align: center;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+}
+.rep-hero .rep-hero-inner { max-width: 1100px; margin: 0 auto; }
+.rep-hero h1 { margin: 0 0 10px; font-size: 2.3rem; }
+.rep-subtitle { color: var(--muted); margin: 0; }
+
+/* Sections */
+.rep-section {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.rep-section-title {
+    font-size: 1.7rem;
+    margin: 0 0 16px;
+    padding-left: 12px;
+    border-left: 6px solid var(--primary);
+}
+
+/* Cards/List */
+.rep-list .rep-news-item,
+.rep-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 6px 14px var(--shadow);
+}
+.rep-list .rep-news-item { margin-bottom: 14px; }
+
+.rep-item-title, .rep-card-title { margin: 0 0 8px; }
+.rep-item-title a, .rep-card-title a { color: var(--text); text-decoration: none; }
+.rep-item-title a:hover, .rep-card-title a:hover { color: var(--primary); }
+
+.rep-read-more {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+.rep-news-text { color: var(--muted); }
+.rep-news-more { margin-top: 8px; color: var(--muted); }
+
+.rep-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+.rep-card-thumb img { width: 100%; height: auto; display: block; border-radius: 8px; }
+.rep-thumb-placeholder {
+    background: #0c131c;
+    color: #6f7a85;
+    display: flex; align-items: center; justify-content: center;
+    height: 180px; border-radius: 8px; border: 1px dashed var(--border);
+}
+.rep-card-body { padding: 10px 4px 0; }
+.rep-card-excerpt { margin: 0 0 8px; color: var(--muted); }
+
+.rep-button {
+    display: inline-block;
+    background: var(--primary);
+    color: #0b1118;
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+.rep-button-outline {
+    display: inline-block;
+    color: var(--primary);
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    font-weight: 700;
+}
+.rep-view-all { margin-top: 16px; text-align: center; }
+
+/* Footer */
+.site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-2);
+    color: var(--muted);
+    padding: 20px;
+    text-align: center;
+}
+
+/* Red text for Renovation Services and News */
+.post-type-archive-renovation_service,
+.single-renovation_service,
+.post-type-archive-news,
+.single-news {
+    /* Update theme text tokens so elements using var(--text)/--muted switch to red */
+    --text: #ff0000;
+    --muted: #ff6b6b;
+
+    /* Ensure base text is red in these contexts */
+    color: #ff0000;
+}
+
+/* Ensure key inner elements also show red text */
+.post-type-archive-renovation_service .rep-item-title a,
+.single-renovation_service .rep-item-title a,
+.post-type-archive-news .rep-item-title a,
+.single-news .rep-item-title a,
+.post-type-archive-renovation_service .rep-card-title a,
+.single-renovation_service .rep-card-title a,
+.post-type-archive-news .rep-card-title a,
+.single-news .rep-card-title a,
+.post-type-archive-renovation_service .rep-news-text,
+.single-renovation_service .rep-news-text,
+.post-type-archive-news .rep-news-text,
+.single-news .rep-news-text,
+.post-type-archive-news .rep-news-more,
+.single-news .rep-news-more {
+    color: #ff0000;
+}
+
+/* Red text on main (home/front) page */
+.home,
+.front-page {
+    --text: #ff0000;
+    --muted: #ff6b6b;
+    color: #ff0000;
+}
+
+/* Ensure key titles and text inherit red on main page */
+.home .rep-item-title a,
+.front-page .rep-item-title a,
+.home .rep-card-title a,
+.front-page .rep-card-title a,
+.home .rep-news-text,
+.front-page .rep-news-text,
+.home .rep-news-more,
+.front-page .rep-news-more {
+    color: #ff0000;
+}
