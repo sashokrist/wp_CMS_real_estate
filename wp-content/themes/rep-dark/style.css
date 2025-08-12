@@ -204,3 +204,45 @@ html, body {
 .front-page .rep-news-more {
     color: #ff0000;
 }
+
+/* Red text for Properties (archive and single) */
+.post-type-archive-property,
+.single-property {
+    --text: #ff0000;
+    --muted: #ff6b6b;
+    color: #ff0000;
+}
+
+/* Ensure key inner elements also show red text on Properties */
+.post-type-archive-property .rep-card-title a,
+.single-property .rep-card-title a,
+.post-type-archive-property .rep-card-excerpt,
+.single-property .rep-card-excerpt {
+    color: #ff0000;
+}
+
+/* Force red text on Properties archive with higher specificity */
+body.post-type-archive-property {
+    --text: #ff0000;
+    --muted: #ff6b6b;
+    color: #ff0000;
+}
+
+/* Ensure common elements on the archive inherit red */
+body.post-type-archive-property .rep-section,
+body.post-type-archive-property .rep-card,
+body.post-type-archive-property .rep-card * {
+    color: #ff0000;
+}
+
+/* Links and excerpts inside property cards */
+body.post-type-archive-property .rep-card-title a,
+body.post-type-archive-property .rep-card-excerpt {
+    color: #ff0000;
+}
+
+/* Optional: adjust outline button color on the archive to match */
+body.post-type-archive-property .rep-button-outline {
+    color: #ff0000;
+    border-color: #ff0000;
+}

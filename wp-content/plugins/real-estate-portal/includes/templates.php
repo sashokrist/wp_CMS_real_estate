@@ -25,11 +25,19 @@ add_filter('single_template', function ($single) {
 });
 
 /**
- * Provide archive template for Properties if theme doesn't.
+ * Provide archive templates if theme doesn't.
  */
 add_filter('archive_template', function ($archive) {
     if (is_post_type_archive('property')) {
         $tpl = REP_PLUGIN_DIR . 'templates/archive-property.php';
+        if (file_exists($tpl)) { return $tpl; }
+    }
+    if (is_post_type_archive('renovation_service')) {
+        $tpl = REP_PLUGIN_DIR . 'templates/archive-renovation_service.php';
+        if (file_exists($tpl)) { return $tpl; }
+    }
+    if (is_post_type_archive('news')) {
+        $tpl = REP_PLUGIN_DIR . 'templates/archive-news.php';
         if (file_exists($tpl)) { return $tpl; }
     }
     return $archive;

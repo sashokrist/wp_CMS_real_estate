@@ -10,6 +10,81 @@ function rep_enqueue_frontend() {
 }
 
 /**
+ * [rep_create_page title="My Page" content="Hello" status="draft" template="templates/landing.php" parent="0" menu_order="0"]
+ *
+ * Creates a new Page (not a Post).
+ */
+add_shortcode('rep_create_page', function ($atts) {
+    // Optional: enqueue assets only if your UI needs them.
+    // rep_enqueue_frontend();
+
+    // Attributes and sanitization
+    $atts = shortcode_atts([
+        'title'      => '',
+        'content'    => '',
+        'status'     => 'draft', // allowed: draft|publish|pending
+        'template'   => '',      // e.g. templates/landing.php
+        'parent'     => '0',     // parent page ID
+        'menu_order' => '0',
+    ], $atts, 'rep_create_page');
+
+    $title       = sanitize_text_field($atts['title']);
+    $content_raw = (string) $atts['content'];
+    $content     = wp_kses_post($content_raw);
+    $status      = in_array($atts['status'], ['draft', 'publish', 'pending'], true) ? $atts['status'] : 'draft';
+    $parent_id   = (int) $atts['parent'];
+    $menu_order  = (int) $atts['menu_order'];
+    $template    = $atts['template'] ? sanitize_text_field($atts['template']) : '';
+
+    // Basic checks
+    if ($title === '') {
+        return esc_html__('Missing title.', 'real-estate-portal');
+    }
+    if (!is_user_logged_in() || !current_user_can('publish_pages')) {
+        return esc_html__('You do not have permission to create pages.', 'real-estate-portal');
+    }
+
+    // Build the page array
+    $pagearr = [
+        'post_type'    => 'page',
+        'post_status'  => $status,
+        'post_title'   => $title,
+        'post_content' => $content,
+        'post_author'  => get_current_user_id(),
+        'post_parent'  => $parent_id,
+        'menu_order'   => $menu_order,
+    ];
+
+    // Insert the page
+    $page_id = wp_insert_post(wp_slash($pagearr), true);
+
+    if (is_wp_error($page_id)) {
+        return esc_html($page_id->get_error_message());
+    }
+
+    // Optional: set the page template
+    if ($template !== '') {
+        update_post_meta($page_id, '_wp_page_template', $template);
+    }
+
+    // Build response
+    $link = get_permalink($page_id);
+    if ($link) {
+        $title_out = esc_html(get_the_title($page_id));
+        $url_out   = esc_url($link);
+
+        return sprintf(
+            /* translators: 1: page title, 2: URL */
+            esc_html__('Page "%1$s" created. View: %2$s', 'real-estate-portal'),
+            $title_out,
+            sprintf('<a href="%s">%s</a>', $url_out, $url_out)
+        );
+    }
+
+    return esc_html__('Page created.', 'real-estate-portal');
+});
+
+/**
  * [rep_header title="Your Title" subtitle="Optional subtitle"]
  */
 add_shortcode('rep_header', function ($atts) {
@@ -78,11 +153,11 @@ add_shortcode('rep_news', function ($atts) {
                     </div>
                 </article>
             <?php endwhile; wp_reset_postdata(); else: ?>
-                <p>No news found.</p>
+                <p><?php echo esc_html__('No news found.', 'real-estate-portal'); ?></p>
             <?php endif; ?>
         </div>
         <div class="rep-view-all">
-            <a class="rep-button" href="<?php echo esc_url(get_post_type_archive_link('news')); ?>">View all news</a>
+            <a class="rep-button" href="<?php echo esc_url(get_post_type_archive_link('news')); ?>"><?php echo esc_html__('View all news', 'real-estate-portal'); ?></a>
         </div>
     </section>
     <?php
@@ -128,15 +203,15 @@ add_shortcode('rep_properties', function ($atts) {
                             echo esc_html(mb_substr($excerpt, 0, 140)) . (mb_strlen($excerpt) > 140 ? '…' : '');
                             ?>
                         </p>
-                        <a class="rep-button-outline" href="<?php the_permalink(); ?>">View details</a>
+                        <a class="rep-button-outline" href="<?php the_permalink(); ?>"><?php echo esc_html__('View details', 'real-estate-portal'); ?></a>
                     </div>
                 </article>
             <?php endwhile; wp_reset_postdata(); else: ?>
-                <p>No properties found.</p>
+                <p><?php echo esc_html__('No properties found.', 'real-estate-portal'); ?></p>
             <?php endif; ?>
         </div>
         <div class="rep-view-all">
-            <a class="rep-button" href="<?php echo esc_url(get_post_type_archive_link('property')); ?>">View all properties</a>
+            <a class="rep-button" href="<?php echo esc_url(get_post_type_archive_link('property')); ?>"><?php echo esc_html__('View all properties', 'real-estate-portal'); ?></a>
         </div>
     </section>
     <?php
@@ -186,11 +261,11 @@ add_shortcode('rep_services', function ($atts) {
                     </div>
                 </article>
             <?php endwhile; wp_reset_postdata(); else: ?>
-                <p>No renovation services found.</p>
+                <p><?php echo esc_html__('No renovation services found.', 'real-estate-portal'); ?></p>
             <?php endif; ?>
         </div>
         <div class="rep-view-all">
-            <a class="rep-button" href="<?php echo esc_url(get_post_type_archive_link('renovation_service')); ?>">View all services</a>
+            <a class="rep-button" href="<?php echo esc_url(get_post_type_archive_link('renovation_service')); ?>"><?php echo esc_html__('View all services', 'real-estate-portal'); ?></a>
         </div>
     </section>
     <?php
