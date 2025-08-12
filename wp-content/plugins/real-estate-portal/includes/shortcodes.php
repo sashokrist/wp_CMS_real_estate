@@ -183,7 +183,7 @@ add_shortcode('rep_properties', function ($atts) {
     ob_start();
     ?>
     <section class="rep-section">
-        <h2 class="rep-section-title">Latest Properties</h2>
+<!--        <h2 class="rep-section-title">Latest Properties</h2>-->
         <div class="rep-card-grid">
             <?php if ($q->have_posts()): while ($q->have_posts()): $q->the_post(); ?>
                 <article class="rep-card">

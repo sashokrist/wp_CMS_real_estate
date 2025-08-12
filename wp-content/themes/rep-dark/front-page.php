@@ -14,6 +14,16 @@ if ($hero_title === '') {
 if ($hero_subtitle === '') {
     $hero_subtitle = get_bloginfo('description');
 }
+
+// Fetch 3 latest images from Media Library
+$rep_slides = get_posts([
+    'post_type'      => 'attachment',
+    'post_mime_type' => 'image',
+    'post_status'    => 'inherit',
+    'numberposts'    => 3,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+]);
 ?>
 <section class="rep-hero" style="<?php echo esc_attr('background: linear-gradient(135deg, ' . $grad_from . ', ' . $grad_to . ');'); ?>">
     <div class="rep-hero-inner">
@@ -23,6 +33,75 @@ if ($hero_subtitle === '') {
 </section>
 
 <main>
+    <?php if (!empty($rep_slides)): ?>
+        <!-- Slideshow: 3 images from Media Library rotating every 3 seconds -->
+        <section id="slideshow" class="rep-section rep-slideshow" aria-label="Featured slideshow">
+            <div class="rep-slideshow-viewport">
+                <?php foreach ($rep_slides as $i => $img_post):
+                    $src = wp_get_attachment_image_url($img_post->ID, 'large');
+                    if (!$src) { continue; }
+                    $alt = get_post_meta($img_post->ID, '_wp_attachment_image_alt', true);
+                    if ($alt === '') { $alt = get_the_title($img_post->ID); }
+                    ?>
+                    <img
+                        class="rep-slide <?php echo $i === 0 ? 'is-active' : ''; ?>"
+                        src="<?php echo esc_url($src); ?>"
+                        alt="<?php echo esc_attr($alt ?: 'Slideshow image'); ?>"
+                        loading="<?php echo $i === 0 ? 'eager' : 'lazy'; ?>"
+                    />
+                <?php endforeach; ?>
+            </div>
+        </section>
+
+        <style>
+            .rep-slideshow-viewport {
+                position: relative;
+                width: 100%;
+                max-width: 1200px;
+                margin: 0 auto;
+                overflow: hidden;
+                border-radius: 8px;
+                aspect-ratio: 16 / 9;
+                background: #e9eef5;
+            }
+            .rep-slideshow-viewport .rep-slide {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0;
+                transition: opacity 600ms ease;
+            }
+            .rep-slideshow-viewport .rep-slide.is-active {
+                opacity: 1;
+            }
+        </style>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var container = document.querySelector('.rep-slideshow-viewport');
+                if (!container) return;
+
+                var slides = container.querySelectorAll('.rep-slide');
+                if (!slides.length) return;
+
+                var index = 0;
+                var intervalMs = 3000;
+
+                slides.forEach(function (img, i) {
+                    img.classList.toggle('is-active', i === 0);
+                });
+
+                setInterval(function () {
+                    slides[index].classList.remove('is-active');
+                    index = (index + 1) % slides.length;
+                    slides[index].classList.add('is-active');
+                }, intervalMs);
+            });
+        </script>
+    <?php endif; ?>
+
     <section id="properties" class="rep-section">
         <h2 class="rep-section-title">Latest Properties</h2>
         <?php echo do_shortcode('[rep_properties limit="6"]'); ?>
@@ -149,6 +228,13 @@ if ($hero_subtitle === '') {
             <a class="rep-button" href="<?php echo esc_url(get_post_type_archive_link('news')); ?>">View all news</a>
         </div>
     </section>
+    <section id="contact" class="rep-section">
+       <h1>Contact Us</h1>
+        <?php
+        echo do_shortcode('[forminator_form id="139"]');
+        ?>
+    </section>
+
 </main>
 
 <?php
