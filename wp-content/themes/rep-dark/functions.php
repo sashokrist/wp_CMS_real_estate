@@ -110,3 +110,9 @@ add_action('customize_preview_init', function () {
         true
     );
 });
+
+// Log the final template file used for the current request.
+add_filter('template_include', function ($template) {
+    error_log('TEMPLATE_USED: ' . $template);
+    return $template;
+});

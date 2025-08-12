@@ -24,17 +24,17 @@ if ($hero_subtitle === '') {
 
     <main>
         <section id="properties" class="rep-section">
-            <h2 class="rep-section-title">Latest Properties</h2>
+<!--            <h2 class="rep-section-title">Latest Properties</h2>-->
             <?php echo do_shortcode('[rep_properties limit="6"]'); ?>
         </section>
 
         <section id="services" class="rep-section">
-            <h2 class="rep-section-title">Renovation Services</h2>
+<!--            <h2 class="rep-section-title">Renovation Services</h2>-->
             <?php echo do_shortcode('[rep_services limit="6"]'); ?>
         </section>
 
         <section id="news" class="rep-section">
-            <h2 class="rep-section-title">Latest News</h2>
+<!--            <h2 class="rep-section-title">Latest News</h2>-->
             <?php echo do_shortcode('[rep_news limit="6"]'); ?>
         </section>
     </main>

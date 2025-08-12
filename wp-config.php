@@ -57,6 +57,14 @@ define( 'SECURE_AUTH_SALT', '~syQ:C q,GZphR:+8)x>B(tW7)_$XXvB?H?{ti*b,+Ay0/KJXNi
 define( 'LOGGED_IN_SALT',   'nmm,})ZBEw;?9p%7,-C)3eS).?wZFbISH.n?d:qXB7syP]?~`sgm*C@Ls7>t. $e' );
 define( 'NONCE_SALT',       'TLzE]E]FV>HqQI98b[lr`DDCg3KOav)n`?c=hmL@)7n[- w8f>U;[<?:4{c,?%F5' );
 
+
+/** Debugging (basic) */
+define('WP_DEBUG', true);          // Master switch for WP debugging
+define('WP_DEBUG_LOG', true);      // Log errors to wp-content/debug.log
+define('WP_DEBUG_DISPLAY', false); // Don’t echo errors to browser (safer)
+@ini_set('display_errors', 0);     // Ensure PHP doesn’t display errors
+
+
 /**#@-*/
 
 /**
